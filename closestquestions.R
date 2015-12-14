@@ -1,3 +1,9 @@
+#This script finds the 10 closest questions to an input question given a csv file containing questions. 
+#The tm package in R is used to create corpora, remove punctuations, white spaces, convert text to lower case and  perform stemming. 
+#An ensemble score for each <input question,question from csv file> is used to find the closest questions: 
+#(adjacent keyword pairs + tf-idf sums of matching terms - tf-idf sums of non-matching terms +  cosine similarity between tf-idf vectors - cosine distance between strings). 
+#The first 3 terms of this formula are based on keywords, and the last 2 on word semantics, thus providing a good balance.
+
 # install.packages("stringdist")
 # install.packages("dplyr")
 # install.packages("tm")
@@ -149,7 +155,7 @@ topmatches <- rev(topmatches)
 qids <- questionsdf$qid[topmatches]
 
 
-#write top 10 qids to text file for Python
+#write top 10 qids to text file
 write(qids, "BEST_QIDS.txt", sep="\n")
 
 
